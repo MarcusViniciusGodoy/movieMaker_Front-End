@@ -19,6 +19,19 @@ O projeto consiste em um sistema de streaming de Séries e Filmes, onde o objeti
  - Buscar episódios a partir de uma data 
 
 
+## Home
+![Home](https://github.com/MarcusViniciusGodoy/assets/blob/main/homeMM.png)
+
+## Detalhes da série
+![Detalhes](https://github.com/MarcusViniciusGodoy/assets/blob/main/detalhesMM.png)
+
+## Detalhes da série por temporada
+![Temporada](https://github.com/MarcusViniciusGodoy/assets/blob/main/filtroMM.png)
+
+## Filtra por categoria
+![Filtro](https://github.com/MarcusViniciusGodoy/assets/blob/main/categoriaMM.png)
+
+
 ### Pré-requisitos
  Para executar este projeto, é necessário ter:
  - [Visual Studio Code](https://code.visualstudio.com/)
