@@ -8,8 +8,6 @@ const elementos = {
 };
 
 // Função para criar a lista de filmes
-
-// Função para criar a lista de filmes
 function criarListaFilmes(elemento, dados) {
     // Verifique se há um elemento <ul> dentro da seção
     const ulExistente = elemento.querySelector('ul');
@@ -87,3 +85,22 @@ function geraSeries() {
         });
 
 }
+
+// Exibe botão e barra de busca
+const buscaIcone = document.getElementById('busca-icone');
+const buscaEntrada = document.getElementById('busca-entrada');
+const buscaIconeContainer = document.querySelector('.container_icone_busca');
+
+buscaIcone.addEventListener('click', (event) => {
+  event.stopPropagation(); 
+  buscaEntrada.classList.add('active');
+  buscaIconeContainer.style.display = 'none'; 
+  buscaEntrada.focus();
+});
+
+document.addEventListener('click', (event) => {
+  if (!buscaEntrada.contains(event.target) && !buscaIconeContainer.contains(event.target)) {
+    buscaEntrada.classList.remove('active');
+    buscaIconeContainer.style.display = 'block'; 
+  }
+});

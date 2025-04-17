@@ -87,3 +87,51 @@ main {
 
 
 }
+
+.cabecalho__opcoes {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+}
+  
+.container_icone_busca {
+    position: absolute;
+    right: 140px;
+    top: 20px;
+    z-index: 2;
+}
+  
+#busca-icone {
+    cursor: pointer;
+    font-size: 48px;
+    transition: color 0.3s ease;
+}
+  
+#busca-entrada {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleX(0);
+    opacity: 0;
+    width: 350px;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid #409ecd;
+    border-radius: 8px;
+    background-color: #0a0a0a;
+    color: white;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    box-sizing: border-box;
+    z-index: 1;
+}
+  
+#busca-entrada::placeholder {
+    color: #ccc;
+}
+  
+#busca-entrada.active {
+    transform: translate(-50%, -50%) scaleX(1);
+    opacity: 1;
+}
