@@ -136,6 +136,29 @@ main {
     opacity: 1;
 }
 
+#conteudo-busca {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .hidden{
     display: none;
+}
+
+.mensagem-erro {
+    padding: 30px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #1a1a1a;
+    border: 1px solid #409ecd;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+.mensagem-erro em {
+    font-style: italic;
+    color: #ff6b6b;
 }

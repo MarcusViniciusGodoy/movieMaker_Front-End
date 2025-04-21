@@ -124,7 +124,22 @@ function carregarSerieBuscada(titulo) {
     getDados(`/series/busca/${tituloFormatado}`)
       .then(resultado => {
         if (!resultado || resultado.length === 0) {
-          console.log("Série não encontrada.");
+          // Oculta seções antigas
+          sectionsParaOcultar.forEach(section => {
+            section.classList.add('hidden');
+          });
+  
+          // Exibe a seção de busca
+          elementos.busca.classList.remove('hidden');
+  
+          // Insere a mensagem de erro personalizada
+          const container = document.getElementById("conteudo-busca");
+  
+          container.innerHTML = `
+            <div class="mensagem-erro">
+              <p><strong>Ops...</strong> Nenhum resultado encontrado para "<em>${titulo}</em>".</p>
+            </div>
+          `;
           return;
         }
   
@@ -158,5 +173,4 @@ function carregarSerieBuscada(titulo) {
       .catch(error => {
         console.error("Erro ao buscar a série:", error);
       });
-  }
-  
+}
