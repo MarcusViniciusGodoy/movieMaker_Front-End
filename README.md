@@ -31,6 +31,12 @@ O projeto consiste em um sistema de streaming de Séries e Filmes, onde o objeti
 ## Filtra por categoria
 ![Filtro](https://github.com/MarcusViniciusGodoy/assets/blob/main/categoriaMM.png)
 
+## Busca por nome
+![Busca](https://github.com/MarcusViniciusGodoy/assets/blob/main/Busca.png)
+
+## Busca por nome não encontrada
+![NEncontrada](https://github.com/MarcusViniciusGodoy/assets/blob/main/NEncontrada.png)
+
 
 ### Pré-requisitos
  Para executar este projeto, é necessário ter:
