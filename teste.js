@@ -67,7 +67,7 @@ categoriaSelect.addEventListener('change', async function handleMudancaCategoria
 // Array de URLs para as solicitações
 gerarSeries();
 async function gerarSeries() {
-    const urls = ['/series/top5', '/series/lancamentos', '/series'];
+    const urls = ['/series/top5', '/series/lancamentos', '/series', '/series/busca'];
 
     try {
         // Faz todas as solicitações em paralelo
@@ -75,6 +75,7 @@ async function gerarSeries() {
         criarListaFilmes(elementos.top5, data[0]);
         criarListaFilmes(elementos.lancamentos, data[1]);
         criarListaFilmes(elementos.series, data[2]);
+        criarListaFilmes(elementos.busca, data[3]);
     } catch (error) {
         lidarComErro("Ocorreu um erro ao carregar os dados.");
     }

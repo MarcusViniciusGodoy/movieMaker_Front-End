@@ -28,13 +28,21 @@
             </select>
         </div>
 
-        <div class="cabecalho__opcoes">
-            <div class="container_icone_busca">
-                <span id="busca-icone" class="material-symbols-outlined">search</span>
-            </div>
-        
-            <input type="text" id="busca-entrada" placeholder="Buscar..." />
-        
+    <button 
+         class="container_icone_busca" 
+         id="botao-busca" 
+         aria-label="Buscar série">
+        <span 
+          id="busca-icone" 
+          class="material-symbols-outlined" 
+          aria-hidden="true">
+          search
+        </span>
+    </button>
+      
+      <input type="text" id="busca-entrada" placeholder="Buscar..." />
+      
+
             <span class="material-symbols-outlined">
                 notifications
             </span>
@@ -72,6 +80,11 @@
             <h2>Titulos no MovieMaker</h2>
         </section>
     </main>
+
+    <section data-name="busca" class="hidden section">
+        <h2>Resultado da busca</h2>
+        <div id="conteudo-busca"></div>
+    </section>
     <script src="./scripts/index.js" type="module"></script>
 </body>
 

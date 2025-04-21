@@ -4,7 +4,8 @@ import getDados from "./getDados.js";
 const elementos = {
     top5: document.querySelector('[data-name="top5"]'),
     lancamentos: document.querySelector('[data-name="lancamentos"]'),
-    series: document.querySelector('[data-name="series"]')
+    series: document.querySelector('[data-name="series"]'),
+    busca: document.querySelector('[data-name="busca"]')
 };
 
 // Função para criar a lista de filmes
@@ -86,11 +87,11 @@ function geraSeries() {
 
 }
 
-// Exibe botão e barra de busca
 const buscaIcone = document.getElementById('busca-icone');
 const buscaEntrada = document.getElementById('busca-entrada');
 const buscaIconeContainer = document.querySelector('.container_icone_busca');
 
+// Exibe a barra de busca ao clicar no ícone
 buscaIcone.addEventListener('click', (event) => {
   event.stopPropagation(); 
   buscaEntrada.classList.add('active');
@@ -98,9 +99,64 @@ buscaIcone.addEventListener('click', (event) => {
   buscaEntrada.focus();
 });
 
+// Oculta a barra de busca ao clicar fora
 document.addEventListener('click', (event) => {
   if (!buscaEntrada.contains(event.target) && !buscaIconeContainer.contains(event.target)) {
     buscaEntrada.classList.remove('active');
     buscaIconeContainer.style.display = 'block'; 
   }
 });
+
+// Ativa a busca ao pressionar Enter
+buscaEntrada.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    const titulo = buscaEntrada.value.trim();
+    if (titulo) {
+      carregarSerieBuscada(titulo);
+    }
+  }
+});
+
+// Função para buscar série no backend Java
+function carregarSerieBuscada(titulo) {
+    const tituloFormatado = encodeURIComponent(titulo);
+  
+    getDados(`/series/busca/${tituloFormatado}`)
+      .then(resultado => {
+        if (!resultado || resultado.length === 0) {
+          console.log("Série não encontrada.");
+          return;
+        }
+  
+        const data = resultado[0];
+  
+        // Oculta seções antigas
+        sectionsParaOcultar.forEach(section => {
+          section.classList.add('hidden');
+        });
+  
+        // Exibe a seção de busca
+        elementos.busca.classList.remove('hidden');
+  
+        // Insere conteúdo apenas dentro do div específico
+        const container = document.getElementById("conteudo-busca");
+  
+        container.innerHTML = `
+          <div class="serie-detalhes">
+            <img src="${data.poster}" alt="${data.titulo}" />
+            <div>
+              <h2>${data.titulo}</h2>
+              <div class="descricao-texto">
+                <p><b>Média de avaliações:</b> ${data.avaliacao}</p>
+                <p>${data.sinopse}</p>
+                <p><b>Estrelando:</b> ${data.atores}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      })
+      .catch(error => {
+        console.error("Erro ao buscar a série:", error);
+      });
+  }
+  
