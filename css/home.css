@@ -84,8 +84,12 @@ main {
         overflow: hidden;
         overflow-x: scroll;
     }
+}
 
-
+.icones-header {
+    display: flex;
+    gap: 30px;  
+    align-items: center;
 }
 
 .cabecalho__opcoes {
@@ -97,11 +101,10 @@ main {
 }
   
 .container_icone_busca {
-    position: absolute;
-    right: 140px;
-    top: 20px;
-    z-index: 2;
+    background: transparent;  
+    border: none;  
 }
+
   
 #busca-icone {
     cursor: pointer;
