@@ -117,7 +117,6 @@ buscaEntrada.addEventListener('keydown', (event) => {
   }
 });
 
-// Função para buscar séries no backend e exibir no front
 function carregarSerieBuscada(titulo) {
   const tituloFormatado = encodeURIComponent(titulo);
 
@@ -131,38 +130,44 @@ function carregarSerieBuscada(titulo) {
       // Exibe a seção de busca
       elementos.busca.classList.remove('hidden');
 
-      // Se não encontrar resultados
-      if (!resultado || resultado.length === 0) {
+      // Se a resposta for uma lista (séries encontradas)
+      if (Array.isArray(resultado) && resultado.length > 0) {
+        // Limpa o container
+        container.innerHTML = "";
+
+        // Cria a lista UL com a classe "lista"
+        const ul = document.createElement("ul");
+        ul.classList.add("lista");
+
+        // Adiciona cada série como um LI
+        resultado.forEach(serie => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <img src="${serie.poster}" alt="${serie.titulo}" />
+            <h2>${serie.titulo}</h2>
+          `;
+          ul.appendChild(li);
+        });
+
+        // Adiciona a lista no container
+        container.appendChild(ul);
+
+      } else if (resultado.mensagem) {
+        // Se a resposta for um erro (objeto de erro)
         container.innerHTML = `
           <div class="mensagem-erro">
-            <p><strong>Ops...</strong> Nenhum resultado encontrado para "<em>${titulo}</em>".</p>
+            <p><strong>Ops...</strong> ${resultado.mensagem}. ${resultado.detalhes ? `<em>${resultado.detalhes}</em>` : ''}</p>
           </div>
         `;
-        return;
       }
-
-      // Limpa o container
-      container.innerHTML = "";
-
-      // Cria a lista UL com a classe "lista"
-      const ul = document.createElement("ul");
-      ul.classList.add("lista");
-
-      // Adiciona cada série como um LI
-      resultado.forEach(serie => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <img src="${serie.poster}" alt="${serie.titulo}" />
-          <h2>${serie.titulo}</h2>
-        `;
-        ul.appendChild(li);
-      });
-
-      // Adiciona a lista no container
-      container.appendChild(ul);
     })
     .catch(error => {
       console.error("Erro ao buscar a série:", error);
+      const container = document.getElementById("conteudo-busca");
+      container.innerHTML = `
+        <div class="mensagem-erro">
+          <p><strong>Erro:</strong> Ocorreu um problema ao buscar a série. Por favor, tente novamente mais tarde.</p>
+        </div>
+      `;
     });
 }
-
