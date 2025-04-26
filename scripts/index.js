@@ -117,53 +117,52 @@ buscaEntrada.addEventListener('keydown', (event) => {
   }
 });
 
-// Função para buscar série no backend Java
+// Função para buscar séries no backend e exibir no front
 function carregarSerieBuscada(titulo) {
-    const tituloFormatado = encodeURIComponent(titulo);
-  
-    getDados(`/series/busca/${tituloFormatado}`)
-      .then(resultado => {
-        if (!resultado || resultado.length === 0) {
-          // Oculta seções antigas
-          sectionsParaOcultar.forEach(section => {
-            section.classList.add('hidden');
-          });
-  
-          // Exibe a seção de busca
-          elementos.busca.classList.remove('hidden');
-  
-          // Insere a mensagem de erro personalizada
-          const container = document.getElementById("conteudo-busca");
-  
-          container.innerHTML = `
-            <div class="mensagem-erro">
-              <p><strong>Ops...</strong> Nenhum resultado encontrado para "<em>${titulo}</em>".</p>
-            </div>
-          `;
-          return;
-        }
-  
-        const data = resultado[0];
-  
-        // Oculta seções antigas
-        sectionsParaOcultar.forEach(section => {
-          section.classList.add('hidden');
-        });
-  
-        // Exibe a seção de busca
-        elementos.busca.classList.remove('hidden');
-  
-        // Insere conteúdo apenas dentro do div específico
-        const container = document.getElementById("conteudo-busca");
-  
+  const tituloFormatado = encodeURIComponent(titulo);
+
+  getDados(`/series/busca/${tituloFormatado}`)
+    .then(resultado => {
+      const container = document.getElementById("conteudo-busca");
+
+      // Oculta seções antigas
+      sectionsParaOcultar.forEach(section => section.classList.add('hidden'));
+
+      // Exibe a seção de busca
+      elementos.busca.classList.remove('hidden');
+
+      // Se não encontrar resultados
+      if (!resultado || resultado.length === 0) {
         container.innerHTML = `
-          <div class="serie-detalhes">
-            <h2>${data.titulo}</h2>
-            <img src="${data.poster}" alt="${data.titulo}" />
+          <div class="mensagem-erro">
+            <p><strong>Ops...</strong> Nenhum resultado encontrado para "<em>${titulo}</em>".</p>
           </div>
         `;
-      })
-      .catch(error => {
-        console.error("Erro ao buscar a série:", error);
+        return;
+      }
+
+      // Limpa o container
+      container.innerHTML = "";
+
+      // Cria a lista UL com a classe "lista"
+      const ul = document.createElement("ul");
+      ul.classList.add("lista");
+
+      // Adiciona cada série como um LI
+      resultado.forEach(serie => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <img src="${serie.poster}" alt="${serie.titulo}" />
+          <h2>${serie.titulo}</h2>
+        `;
+        ul.appendChild(li);
       });
+
+      // Adiciona a lista no container
+      container.appendChild(ul);
+    })
+    .catch(error => {
+      console.error("Erro ao buscar a série:", error);
+    });
 }
+
